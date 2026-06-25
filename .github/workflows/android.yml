@@ -9,17 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+
+      # Gradle-ді автоматты түрде баптау (wrapper қажет емес)
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      # Енді жай ғана gradle командасын іске қосамыз
       - name: Build with Gradle
-        run: |
-          chmod +x ./gradlew
-          ./gradlew assembleRelease
+        run: gradle assembleRelease
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
