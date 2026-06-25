@@ -28,8 +28,9 @@ jobs:
           yes | sdkmanager --licenses
           sdkmanager "ndk;25.1.8937393" "cmake;3.22.1"
 
-      - name: Build with Gradle
+      - name: Generate Wrapper and Build
         run: |
+          gradle wrapper --gradle-version 7.5.1
           chmod +x ./gradlew
           ./gradlew assembleRelease
 
